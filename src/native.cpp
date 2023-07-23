@@ -1,4 +1,5 @@
 #include <string>
+
 std::string* std_string_new() { return new std::string(); }
 std::string* std_string_new_str(const char* s) { return new std::string(s); }
 void std_string_delete(std::string* str) { delete str; }

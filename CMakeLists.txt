@@ -8,8 +8,7 @@ include_directories("include")
 
 link_directories("lib")
 
-target_link_libraries(hook "libfunchook.a")
-target_link_libraries(hook "libZydis.a")
+add_library(native SHARED src/hook.cpp src/native.cpp)
 
-add_library(native SHARED src/hook.c src/native.cpp)
-
+target_link_libraries(native "libfunchook.a"
+                             "libZydis.a")
