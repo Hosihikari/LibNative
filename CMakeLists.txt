@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.26)
-project(native C CXX)
 
+set(CMAKE_C_COMPILER clang)
 set(CMAKE_C_STANDARD 23)
+set(CMAKE_CXX_COMPILER clang)
 set(CMAKE_CXX_STANDARD 26)
+
+project(native C CXX)
 
 include_directories("include")
 
