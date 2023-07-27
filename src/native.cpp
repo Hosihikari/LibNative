@@ -1,3 +1,4 @@
+#include <istream>
 #include <string>
 #include <vector>
 extern "C" {
@@ -32,4 +33,18 @@ void* std_vector_back(std::vector<char>* vec) { return &vec->back(); }
 void std_vector_pop_back(std::vector<char>* vec) { vec->pop_back(); }
 void std_vector_clear(std::vector<char>* vec) { vec->clear(); }
 #pragma endregion std::vector
+#pragma region std::istream
+struct membuf : std::streambuf {
+    membuf(char* begin, char* end) { this->setg(begin, begin, end); }
+};
+void* std_istream_new(char* buffer, int length) {
+    membuf sbuf(buffer, buffer + length);
+    return new std::istream(&sbuf);
+}
+void std_istream_delete(std::istream* stream) { delete stream; }
+bool std_istream_read(std::istream* stream, char* buffer, int length) {
+    stream->read(buffer, length);
+    return stream->good();
+}
+#pragma endregion
 }
