@@ -1,6 +1,7 @@
 #include <istream>
 #include <string>
 #include <vector>
+
 extern "C" {
 #pragma region std::string
 std::string* std_string_new() { return new std::string(); }
