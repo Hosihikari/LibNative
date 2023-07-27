@@ -38,11 +38,15 @@ void std_vector_clear(std::vector<char>* vec) { vec->clear(); }
 struct membuf : std::streambuf {
     membuf(char* begin, char* end) { this->setg(begin, begin, end); }
 };
-void* std_istream_new(char* buffer, int length) {
-    membuf sbuf(buffer, buffer + length);
-    return new std::istream(&sbuf);
+void std_istream_new(char* buffer, int length, std::istream** stream,
+                     membuf** sbuf) {
+    *sbuf = new membuf(buffer, buffer + length);
+    *stream = new std::istream(*sbuf);
 }
-void std_istream_delete(std::istream* stream) { delete stream; }
+void std_istream_delete(std::istream* stream, membuf* sbuf) {
+    delete stream; 
+    delete sbuf;
+}
 bool std_istream_read(std::istream* stream, char* buffer, int length) {
     stream->read(buffer, length);
     return stream->good();
