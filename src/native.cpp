@@ -6,7 +6,9 @@ extern "C" {
 #pragma region std::string
 std::string* std_string_new() { return new std::string(); }
 std::string* std_string_new_str(const char* s) { return new std::string(s); }
-void std_string_delete(std::string* str) { delete str; }
+void std_string_delete(std::string* str) {
+    if (str) delete str;
+}
 int std_string_length(std::string* str) { return str->size(); }
 void std_string_append(std::string* str, const char* s) { str->append(s); }
 void std_string_append_std_string(std::string* str, const std::string* s) {
@@ -18,7 +20,9 @@ const char* std_string_data(std::string* str) { return str->data(); }
 
 #pragma region std::vector
 std::vector<char>* std_vector_new() { return new std::vector<char>(); }
-void std_vector_delete(std::vector<char>* vec) { delete vec; }
+void std_vector_delete(std::vector<char>* vec) {
+    if (vec) delete vec;
+}
 void std_vector_push_back(std::vector<char>* vec, char* c, int length) {
     while (length-- > 0) {
         vec->push_back(*(c++));
@@ -44,8 +48,8 @@ void std_istream_new(char* buffer, int length, std::istream** stream,
     *stream = new std::istream(*sbuf);
 }
 void std_istream_delete(std::istream* stream, membuf* sbuf) {
-    delete stream; 
-    delete sbuf;
+    if (stream) delete stream;
+    if (sbuf) delete sbuf;
 }
 bool std_istream_read(std::istream* stream, char* buffer, int length) {
     stream->read(buffer, length);
