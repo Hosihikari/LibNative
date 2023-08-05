@@ -15,6 +15,12 @@ void std_string_placement_new_default(void* where) { new (where) std::string; }
 void std_string_placement_new_c_style_str(void* where, char* str) {
     new (where) std::string(str);
 }
+void std_string_placement_new_copy(void* where, std::string* str) {
+    new (where) std::string(*str);
+}
+void std_string_placement_new_move(void* where, std::string* str) {
+    new (where) std::string(std::move(*str));
+}
 void std_string_destructor(std::string* str) { str->~basic_string(); }
 
 std::string* std_string_new() { return new std::string(); }
