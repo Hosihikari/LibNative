@@ -6,17 +6,9 @@ extern "C" {
 #pragma region memory
 void* operator_new(std::size_t size) { return operator new(size); }
 void operator_delete(void* block) { operator delete(block); }
-void operator_delete_with_size(void* block, std::size_t size) {
-    operator delete(block, size);
-}
-void* operator_new_array(std::size_t size) {
-    return operator new[](size);
-}
+void* operator_new_array(std::size_t size) { return operator new[](size); }
 void operator_delete_array(void* block) { operator delete[](block); }
-void operator_delete_array_with_size(void* block, std::size_t size) {
-    operator delete[](block, size);
-}
-#pragma endregion
+#pragma endregion memory
 #pragma region std::string
 std::size_t std_string_get_class_size() { return sizeof(std::string); }
 void std_string_placement_new_default(void* where) { new (where) std::string; }
