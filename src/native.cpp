@@ -4,17 +4,25 @@
 
 extern "C" {
 #pragma region memory
-void* operator_new(unsigned __int64 size) { return operator new(size); }
+void* operator_new(unsigned long long size) { return operator new(size); }
 void operator_delete(void* block) { operator delete(block); }
-void operator_delete_with_size(void* block, unsigned __int64 size) { operator delete(block, size); }
-void* operator_new_array(unsigned __int64 size) { return operator new[](size); }
+void operator_delete_with_size(void* block, unsigned long long size) {
+    operator delete(block, size);
+}
+void* operator_new_array(unsigned long long size) {
+    return operator new[](size);
+}
 void operator_delete_array(void* block) { operator delete[](block); }
-void operator_delete_array(void* block, unsigned __int64 size) { operator delete[](block, size); }
+void operator_delete_array(void* block, unsigned long long size) {
+    operator delete[](block, size);
+}
 #pragma endregion
 #pragma region std::string
-unsigned __int64 std_string_get_class_size(){ return sizeof(std::string); }
-void std_string_placement_new_default(void* where) { new(where) std::string; }
-void std_string_placement_new_c_style_str(void* where, char* str) { new(where) std::string(str); }
+unsigned long long std_string_get_class_size() { return sizeof(std::string); }
+void std_string_placement_new_default(void* where) { new (where) std::string; }
+void std_string_placement_new_c_style_str(void* where, char* str) {
+    new (where) std::string(str);
+}
 void std_string_destructor(std::string* str) { str->~basic_string(); }
 
 std::string* std_string_new() { return new std::string(); }
