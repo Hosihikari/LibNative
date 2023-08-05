@@ -20,7 +20,7 @@ void std_string_destructor(std::string* str) { str->~basic_string(); }
 std::string* std_string_new() { return new std::string(); }
 std::string* std_string_new_str(const char* s) { return new std::string(s); }
 void std_string_delete(std::string* str) { delete str; }
-unsigned long std_string_length(std::string* str) { return str->size(); }
+std::size_t std_string_length(std::string* str) { return str->size(); }
 void std_string_append(std::string* str, const char* s) { str->append(s); }
 void std_string_append_std_string(std::string* str, const std::string* s) {
     str->append(*s);
@@ -38,7 +38,7 @@ void std_vector_push_back(std::vector<char>* vec, char* c, int length) {
     }
 }
 char* std_vector_data(std::vector<char>* vec) { return vec->data(); }
-unsigned long std_vector_size(std::vector<char>* vec) { return vec->size(); }
+std::size_t std_vector_size(std::vector<char>* vec) { return vec->size(); }
 void* std_vector_at(std::vector<char>* vec, int index) {
     return &vec->at(index);
 }
