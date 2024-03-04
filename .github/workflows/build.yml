@@ -10,18 +10,19 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v3.5.3
 
-      - name: Configure CMake
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      - name: Configure MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+        run: msbuild /m /p:Configuration=${{ env.BUILD_TYPE }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
-          path: build/libexport.so
+          path: x64/Release/Export.dll
